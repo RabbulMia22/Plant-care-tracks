@@ -23,6 +23,7 @@ function AuthProvider({ children }) {
     const logOut = () => {
     return signOut(auth)
   };
+  
     const loginWithEmail = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
   }
