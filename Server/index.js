@@ -37,6 +37,13 @@ async function run() {
       const result = await plantsCollection.insertOne(plant);
       res.send(result);
     });
+
+    app.get('/plants', async (req, res) => {
+      const cursor = plantsCollection.find({});
+      const plants = await cursor.toArray();
+      res.send(plants);
+    });
+    
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
