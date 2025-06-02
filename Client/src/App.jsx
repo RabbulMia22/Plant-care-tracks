@@ -8,6 +8,9 @@ import AllPlants from "./pages/AllPlants"
 import MyPlants from "./pages/MyPlants"
 import AuthProvider from "./context/AuthProvider"
 import Layout from "./layout/Layout"
+import PlantsDetails from "./components/PlantDetails/PlantsDetails"
+import Update from "./components/Update/Update"
+import PrivateRout from "./components/PrivateRouter/PrivateRout"
 
 function App() {
   const router = createBrowserRouter([
@@ -28,7 +31,16 @@ function App() {
       },
       {
         path: 'addplant',
-        element: <AddPlant />
+        element: (
+          <PrivateRout>
+            <AddPlant />
+          </PrivateRout>
+        )
+      },
+      {
+        path: 'plant/:id',
+        element: <PlantsDetails />,
+        loader: ({params}) => fetch(`http://localhost:3000/plants/${params.id}`)
       },
       {
         path: 'allplant',
@@ -36,7 +48,15 @@ function App() {
       },
       {
         path: 'myplants',
-        element: <MyPlants />
+        element: (
+        <PrivateRout>
+          <MyPlants />
+        </PrivateRout>)
+      },
+      {
+        path: 'update/:id',
+        element: <Update />,
+        loader: ({params}) => fetch(`http://localhost:3000/plants/${params.id}`)
       },
      ]
     }

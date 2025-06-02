@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaUserPlus } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthProvider';
+import { updateProfile } from 'firebase/auth';
 
 function Register() {
-  const {signinWithEmail} = useContext(AuthContext);
+  const { signinWithEmail } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -13,15 +17,25 @@ function Register() {
     const photo = form.photo.value;
 
     signinWithEmail(email, password)
-      .then( (result) => {
+      .then((result) => {
         const user = result.user;
-        console.log(user);
+
+        
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {
+            console.log('Profile updated successfully');
+            navigate('/'); 
+          })
+          .catch((error) => {
+            console.error('Profile update error:', error.message);
+          });
       })
       .catch((error) => {
-        console.error("Signup error:", error.message);
+        console.error('Signup error:', error.message);
       });
-    
-    
   };
 
   return (
@@ -38,7 +52,7 @@ function Register() {
             <input
               type="text"
               placeholder="Given Name"
-              name='name'
+              name="name"
               className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
@@ -48,7 +62,7 @@ function Register() {
             <input
               type="email"
               placeholder="Your email"
-              name='email'
+              name="email"
               className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
@@ -58,7 +72,7 @@ function Register() {
             <input
               type="password"
               placeholder="Your password"
-              name='password'
+              name="password"
               className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
@@ -66,8 +80,9 @@ function Register() {
           <div>
             <label className="block text-sm font-medium text-gray-600">Photo URL</label>
             <input
+              type="text"
               placeholder="Your photo URL"
-              name='photo'
+              name="photo"
               className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
               required
             />
@@ -81,7 +96,9 @@ function Register() {
         </form>
         <p className="mt-4 text-center text-sm text-gray-500">
           Already have an account?{' '}
-          <a href="/login" className="text-emerald-600 hover:underline">Login</a>
+          <a href="/login" className="text-emerald-600 hover:underline">
+            Login
+          </a>
         </p>
       </div>
     </div>
