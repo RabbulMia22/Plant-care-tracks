@@ -11,7 +11,7 @@ function MyPlants() {
   useEffect(() => {
     if (!email) return;
 
-    fetch(`http://localhost:3000/plants?email=${email}`)
+    fetch(`https://server-rust-kappa-39.vercel.app/plants?email=${email}`)
       .then(res => res.json())
       .then(data => setMyPlants(data))
       .catch(err => console.error("Failed to load user plants", err));
@@ -27,7 +27,7 @@ function MyPlants() {
       cancelButtonText: "No, cancel!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/plants/${id}`, {
+        fetch(`https://server-rust-kappa-39.vercel.app/plants/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

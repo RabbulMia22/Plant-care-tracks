@@ -5,7 +5,7 @@ function PlantCard() {
   const [plants, setPlants] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/plants")
+    fetch("https://server-rust-kappa-39.vercel.app/plants")
       .then(res => res.json())
       .then(data => {
         setPlants(data);

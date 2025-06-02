@@ -40,7 +40,7 @@ function App() {
       {
         path: 'plant/:id',
         element: <PlantsDetails />,
-        loader: ({params}) => fetch(`http://localhost:3000/plants/${params.id}`)
+        loader: ({params}) => fetch(`https://server-rust-kappa-39.vercel.app/plants/${params.id}`)
       },
       {
         path: 'allplant',
@@ -56,7 +56,7 @@ function App() {
       {
         path: 'update/:id',
         element: <Update />,
-        loader: ({params}) => fetch(`http://localhost:3000/plants/${params.id}`)
+        loader: ({params}) => fetch(`https://server-rust-kappa-39.vercel.app/plants/${params.id}`)
       },
      ]
     }

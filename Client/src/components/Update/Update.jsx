@@ -13,7 +13,7 @@ function Update() {
        const updatedPlant = Object.fromEntries(formData.entries());
        console.log(updatedPlant);
        
-       fetch(`http://localhost:3000/plants/${_id}`, {
+       fetch(`https://server-rust-kappa-39.vercel.app/plants/${_id}`, {
           method: "PATCH",
          headers: {
            'Content-Type': 'application/json'
